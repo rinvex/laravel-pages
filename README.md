@@ -1,14 +1,14 @@
 # Rinvex Pages
 
-**Rinvex Pages** is an integral part of your content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.
+**Rinvex Pages** is an integral part for your Laravel content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/pages.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/pages)
 [![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:pages.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:pages/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/pages.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/pages/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/pages.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/pages)
 [![Travis](https://img.shields.io/travis/rinvex/pages.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/pages)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/7923f41b-09fc-40f1-ae8e-7d19afae897c.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/7923f41b-09fc-40f1-ae8e-7d19afae897c)
-[![StyleCI](https://styleci.io/repos/98805007/shield)](https://styleci.io/repos/98805007)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/e87d27d0-0592-4f89-b224-01ed6cb51f82.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/e87d27d0-0592-4f89-b224-01ed6cb51f82)
+[![StyleCI](https://styleci.io/repos/98953486/shield)](https://styleci.io/repos/98953486)
 [![License](https://img.shields.io/packagist/l/rinvex/pages.svg?label=License&style=flat-square)](https://github.com/rinvex/pages/blob/develop/LICENSE)
 
 
@@ -21,16 +21,16 @@
 
 2. Execute migrations via the following command:
     ```
-    php artisan migrate --path="vendor/rinvex/contacts/database/migrations"
+    php artisan migrate --path="vendor/rinvex/pages/database/migrations"
     ```
 
 3. **Optionally** you can publish migrations and config files by running the following commands:
     ```shell
     // Publish migrations
-    php artisan vendor:publish --tag="rinvex-contacts-migrations"
+    php artisan vendor:publish --tag="rinvex-pages-migrations"
 
     // Publish config
-    php artisan vendor:publish --tag="rinvex-contacts-config"
+    php artisan vendor:publish --tag="rinvex-pages-config"
     ```
 
 4. Done!

@@ -1,0 +1,82 @@
+{
+    "name": "rinvex/pages",
+    "description": "Rinvex Pages is an integral part of your content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.",
+    "keywords": [
+        "ajax",
+        "async",
+        "rinvex",
+        "pages",
+        "cache",
+        "page",
+        "cms"
+    ],
+    "license": "MIT",
+    "homepage": "https://rinvex.com",
+    "support": {
+        "email": "help@rinvex.com",
+        "issues": "https://github.com/rinvex/pages/issues",
+        "source": "https://github.com/rinvex/pages",
+        "docs": "https://github.com/rinvex/pages/blob/master/README.md"
+    },
+    "authors": [
+        {
+            "name": "Rinvex LLC",
+            "homepage": "https://rinvex.com",
+            "email": "help@rinvex.com"
+        },
+        {
+            "name": "Abdelrahman Omran",
+            "homepage": "https://omranic.com",
+            "email": "me@omranic.com",
+            "role": "Project Lead"
+        },
+        {
+            "name": "The Generous Laravel Community",
+            "homepage": "https://github.com/rinvex/pages/contributors"
+        }
+    ],
+    "require": {
+        "php": "^7.0.0",
+        "illuminate/view": "~5.5.0",
+        "illuminate/support": "~5.5.0",
+        "illuminate/routing": "~5.5.0",
+        "illuminate/console": "~5.5.0",
+        "illuminate/database": "~5.5.0",
+        "rinvex/cacheable": "dev-develop",
+        "spatie/laravel-sluggable": "^1.5.0",
+        "spatie/laravel-translatable": "^1.3.0",
+        "spatie/eloquent-sortable": "^3.3.0",
+        "watson/validating": "^3.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0.0",
+        "illuminate/container": "~5.5.0"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "Rinvex\\Pages\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rinvex\\Pages\\Test\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rinvex\\Pages\\Providers\\PagesServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

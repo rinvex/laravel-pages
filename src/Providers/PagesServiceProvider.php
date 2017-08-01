@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Providers;
 
+use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Pages\Models\Page;
 
 class PagesServiceProvider extends ServiceProvider
 {

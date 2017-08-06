@@ -28,16 +28,12 @@ class PagesServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        // Load routes
+        // Load resources
         $this->loadRoutes($router);
+        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        if ($this->app->runningInConsole()) {
-            // Load migrations
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-            // Publish Resources
-            $this->publishResources();
-        }
+        // Publish Resources
+        ! $this->app->runningInConsole() || $this->publishResources();
     }
 
     /**
@@ -55,11 +51,6 @@ class PagesServiceProvider extends ServiceProvider
                 $router->get($page->uri, function () use ($page) {
                     return view($page->view, compact('page'));
                 })->name('rinvex.pages.'.$page->slug)->middleware('web');
-            });
-
-            $this->app->booted(function () use ($router) {
-                $router->getRoutes()->refreshNameLookups();
-                $router->getRoutes()->refreshActionLookups();
             });
         }
     }

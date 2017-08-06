@@ -218,18 +218,6 @@ class Page extends Model implements Sortable
     }
 
     /**
-     * Enforce clean slugs.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = str_slug($value, '.');
-    }
-
-    /**
      * Get the options for generating the slug.
      *
      * @return \Spatie\Sluggable\SlugOptions

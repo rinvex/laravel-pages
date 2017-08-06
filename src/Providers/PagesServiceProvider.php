@@ -45,12 +45,13 @@ class PagesServiceProvider extends ServiceProvider
      */
     protected function loadRoutes(Router $router)
     {
-        // Load routes
         if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached()) {
             Page::active()->each(function ($page) use ($router) {
                 $router->get($page->uri, function () use ($page) {
                     return view($page->view, compact('page'));
-                })->name('rinvex.pages.'.$page->slug)->middleware('web');
+                })->middleware($page->middleware ?? 'web')
+                  ->domain($page->domain ?? domain())
+                  ->name($page->slug);
             });
         }
     }

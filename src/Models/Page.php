@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
+use Rinvex\Support\Traits\UniqueInjector;
 use Spatie\EloquentSortable\SortableTrait;
 
 class Page extends Model implements Sortable
@@ -19,8 +20,11 @@ class Page extends Model implements Sortable
     use HasSlug;
     use SortableTrait;
     use HasTranslations;
-    use ValidatingTrait;
     use CacheableEloquent;
+    use ValidatingTrait, UniqueInjector
+    {
+        UniqueInjector::prepareUniqueRule insteadof ValidatingTrait;
+    }
 
     /**
      * {@inheritdoc}

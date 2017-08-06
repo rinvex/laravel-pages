@@ -32,7 +32,6 @@ class Page extends Model implements Sortable
         'subtitle',
         'excerpt',
         'content',
-        'keywords',
         'view',
         'is_active',
         'sort_order',
@@ -48,7 +47,6 @@ class Page extends Model implements Sortable
         'subtitle' => 'string',
         'excerpt' => 'string',
         'content' => 'string',
-        'keywords' => 'string',
         'view' => 'string',
         'is_active' => 'boolean',
         'sort_order' => 'integer',
@@ -71,7 +69,6 @@ class Page extends Model implements Sortable
         'subtitle',
         'excerpt',
         'content',
-        'keywords',
     ];
 
     /**
@@ -114,7 +111,6 @@ class Page extends Model implements Sortable
             'excerpt' => 'sometimes|integer|max:10000',
             'content' => 'required|string|max:10000000',
             'view' => 'required|string|max:150',
-            'keywords' => 'nullable|string|max:150',
             'is_active' => 'sometimes|boolean',
             'sort_order' => 'sometimes|integer|max:10000000',
         ]);
@@ -209,18 +205,6 @@ class Page extends Model implements Sortable
     public function setContentAttribute($value)
     {
         $this->attributes['content'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable keywords attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setKeywordsAttribute($value)
-    {
-        $this->attributes['keywords'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
     }
 
     /**

@@ -23,7 +23,6 @@ class CreatePagesTable extends Migration
             $table->{$this->jsonable()}('subtitle')->nullable();
             $table->{$this->jsonable()}('excerpt')->nullable();
             $table->{$this->jsonable()}('content')->nullable();
-            $table->{$this->jsonable()}('keywords')->nullable();
             $table->string('view');
             $table->boolean('is_active')->default(true);
             $table->mediumInteger('sort_order')->unsigned()->default(0);

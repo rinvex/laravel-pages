@@ -7,6 +7,7 @@ namespace Rinvex\Pages\Providers;
 use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Pages\Http\Controllers\PagesController;
 
 class PagesServiceProvider extends ServiceProvider
 {
@@ -47,11 +48,11 @@ class PagesServiceProvider extends ServiceProvider
     {
         if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached()) {
             Page::active()->each(function ($page) use ($router) {
-                $router->get($page->uri, function () use ($page) {
-                    return view($page->view, compact('page'));
-                })->middleware($page->middleware ?? 'web')
-                  ->domain($page->domain ?? domain())
-                  ->name($page->slug);
+                $router->get($page->uri)
+                       ->name($page->slug)
+                       ->uses(PagesController::class)
+                       ->middleware($page->middleware ?? [])
+                       ->domain($page->domain ?? null);
             });
         }
     }

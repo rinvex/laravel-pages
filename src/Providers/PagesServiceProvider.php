@@ -7,10 +7,20 @@ namespace Rinvex\Pages\Providers;
 use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Pages\Console\Commands\MigrateCommand;
 use Rinvex\Pages\Http\Controllers\PagesController;
 
 class PagesServiceProvider extends ServiceProvider
 {
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        MigrateCommand::class => 'command.rinvex.pages.migrate',
+    ];
+
     /**
      * Register the service provider.
      *
@@ -20,6 +30,15 @@ class PagesServiceProvider extends ServiceProvider
     {
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.pages');
+
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, function ($app) use ($key) {
+                return new $key();
+            });
+        }
+
+        $this->commands(array_values($this->commands));
     }
 
     /**
@@ -51,7 +70,7 @@ class PagesServiceProvider extends ServiceProvider
                 $router->get($page->uri)
                        ->name($page->slug)
                        ->uses(PagesController::class)
-                       ->middleware($page->middleware ?? [])
+                       ->middleware($page->middleware ?? 'web')
                        ->domain($page->domain ?? null);
             });
         }

@@ -21,14 +21,11 @@
 
 2. Execute migrations via the following command:
     ```
-    php artisan migrate --path="vendor/rinvex/pages/database/migrations"
+    php artisan rinvex:migrate:pages
     ```
 
-3. **Optionally** you can publish migrations and config files by running the following commands:
+3. **Optionally** you can publish config file by running the following command:
     ```shell
-    // Publish migrations
-    php artisan vendor:publish --tag="rinvex-pages-migrations"
-
     // Publish config
     php artisan vendor:publish --tag="rinvex-pages-config"
     ```

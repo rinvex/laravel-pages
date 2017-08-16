@@ -6,6 +6,7 @@ namespace Rinvex\Pages\Providers;
 
 use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Pages\Console\Commands\MigrateCommand;
 use Rinvex\Pages\Http\Controllers\PagesController;
@@ -65,7 +66,7 @@ class PagesServiceProvider extends ServiceProvider
      */
     protected function loadRoutes(Router $router)
     {
-        if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached()) {
+        if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
             Page::active()->each(function ($page) use ($router) {
                 $router->get($page->uri)
                        ->name($page->slug)

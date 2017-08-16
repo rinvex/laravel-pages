@@ -19,8 +19,8 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->string('uri');
             $table->string('slug');
-            $table->string('domain');
-            $table->string('middleware');
+            $table->string('domain')->nullable();
+            $table->string('middleware')->nullable();
             $table->{$this->jsonable()}('title');
             $table->{$this->jsonable()}('subtitle')->nullable();
             $table->{$this->jsonable()}('excerpt')->nullable();

@@ -119,7 +119,7 @@ class Page extends Model implements Sortable
             'title' => 'required|string|max:150',
             'subtitle' => 'nullable|string|max:150',
             'excerpt' => 'nullable|string|max:10000',
-            'content' => 'required|string|max:10000000',
+            'content' => 'nullable|string|max:10000000',
             'view' => 'required|string|max:150',
             'is_active' => 'sometimes|boolean',
             'sort_order' => 'sometimes|integer|max:10000000',

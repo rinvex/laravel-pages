@@ -49,12 +49,8 @@ class Page extends Model implements Sortable
     protected $casts = [
         'uri' => 'string',
         'slug' => 'string',
-        'title' => 'string',
-        'subtitle' => 'string',
         'domain' => 'string',
         'middleware' => 'string',
-        'excerpt' => 'string',
-        'content' => 'string',
         'view' => 'string',
         'is_active' => 'boolean',
         'sort_order' => 'integer',

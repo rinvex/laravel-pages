@@ -32,6 +32,11 @@ class PagesServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.pages');
 
+        // Register eloquent models
+        $this->app->singleton('rinvex.pages.page', function ($app) {
+            return new $app['config']['rinvex.pages.models.page']();
+        });
+
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
             $this->app->singleton($value, function ($app) use ($key) {

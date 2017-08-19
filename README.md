@@ -39,7 +39,7 @@
 To get started, you simply create a new page as follows:
 
 ```php
-$page = \Rinvex\Pages\Models\Page::create([
+$page = app('rinvex.pages.page')->create([
     'uri' => 'test',
     'slug' => 'test-page',
     'title' => 'Test Page',
@@ -53,13 +53,13 @@ $page->deactivate();
 $page->activate();
 
 // Get all pages
-$pages = \Rinvex\Pages\Models\Page::all();
+$pages = app('rinvex.pages.page')->all();
 
 // Get active pages
-$pages = \Rinvex\Pages\Models\Page::active()->get();
+$pages = app('rinvex.pages.page')->active()->get();
 
 // Get inactive pages
-$pages = \Rinvex\Pages\Models\Page::inactive()->get();
+$pages = app('rinvex.pages.page')->inactive()->get();
 ```
 
 > **Notes:**

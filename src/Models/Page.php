@@ -118,7 +118,7 @@ class Page extends Model implements Sortable
             'content' => 'nullable|string|max:10000000',
             'view' => 'required|string|max:150',
             'is_active' => 'sometimes|boolean',
-            'sort_order' => 'sometimes|integer|max:10000000',
+            'sort_order' => 'nullable|integer|max:10000000',
         ]);
     }
 

@@ -73,7 +73,7 @@ class PagesServiceProvider extends ServiceProvider
     protected function loadRoutes(Router $router)
     {
         if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
-            Page::active()->each(function ($page) use ($router) {
+            app('rinvex.pages.page')->active()->each(function ($page) use ($router) {
                 $router->get($page->uri)
                        ->name($page->slug)
                        ->uses(PagesController::class)

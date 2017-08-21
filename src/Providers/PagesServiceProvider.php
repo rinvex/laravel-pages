@@ -38,14 +38,8 @@ class PagesServiceProvider extends ServiceProvider
         });
         $this->app->alias('rinvex.pages.page', Page::class);
 
-        // Register artisan commands
-        foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
-        }
-
-        $this->commands(array_values($this->commands));
+        // Register console commands
+        ! $this->app->runningInConsole() || $this->registerCommands();
     }
 
     /**
@@ -92,5 +86,22 @@ class PagesServiceProvider extends ServiceProvider
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.pages.php')], 'rinvex-pages-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-pages-migrations');
+    }
+
+    /**
+     * Register console commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, function ($app) use ($key) {
+                return new $key();
+            });
+        }
+
+        $this->commands(array_values($this->commands));
     }
 }

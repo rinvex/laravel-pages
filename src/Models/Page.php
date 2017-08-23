@@ -10,6 +10,7 @@ use Spatie\EloquentSortable\Sortable;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Rinvex\Pages\Contracts\PageContract;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\UniqueInjector;
@@ -54,14 +55,13 @@ use Spatie\EloquentSortable\SortableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereView($value)
  * @mixin \Eloquent
  */
-class Page extends Model implements Sortable
+class Page extends Model implements PageContract, Sortable
 {
     use HasSlug;
     use SortableTrait;
     use HasTranslations;
     use CacheableEloquent;
-    use ValidatingTrait, UniqueInjector
-    {
+    use ValidatingTrait, UniqueInjector {
         UniqueInjector::prepareUniqueRule insteadof ValidatingTrait;
     }
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Providers;
 
-use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Pages\Contracts\PageContract;
 use Rinvex\Pages\Console\Commands\MigrateCommand;
 use Rinvex\Pages\Http\Controllers\PagesController;
 
@@ -36,7 +36,7 @@ class PagesServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.pages.page', function ($app) {
             return new $app['config']['rinvex.pages.models.page']();
         });
-        $this->app->alias('rinvex.pages.page', Page::class);
+        $this->app->alias('rinvex.pages.page', PageContract::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();

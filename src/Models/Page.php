@@ -166,13 +166,11 @@ class Page extends Model implements PageContract, Sortable
         parent::boot();
 
         // Auto generate slugs early before validation
-        static::registerModelEvent('validating', function (self $attribute) {
-            if (! $attribute->slug) {
-                if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                    $attribute->generateSlugOnUpdate();
-                } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                    $attribute->generateSlugOnCreate();
-                }
+        static::validating(function (self $attribute) {
+            if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
+                $attribute->generateSlugOnUpdate();
+            } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
+                $attribute->generateSlugOnCreate();
             }
         });
     }

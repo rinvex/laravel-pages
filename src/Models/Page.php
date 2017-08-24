@@ -7,13 +7,12 @@ namespace Rinvex\Pages\Models;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\EloquentSortable\Sortable;
-use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Pages\Contracts\PageContract;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
-use Rinvex\Support\Traits\UniqueInjector;
+use Rinvex\Support\Traits\HasTranslations;
+use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 
 /**
@@ -60,10 +59,8 @@ class Page extends Model implements PageContract, Sortable
     use HasSlug;
     use SortableTrait;
     use HasTranslations;
+    use ValidatingTrait;
     use CacheableEloquent;
-    use ValidatingTrait, UniqueInjector {
-        UniqueInjector::prepareUniqueRule insteadof ValidatingTrait;
-    }
 
     /**
      * {@inheritdoc}

@@ -263,7 +263,7 @@ class Page extends Model implements PageContract, Sortable
     /**
      * Active the page.
      *
-     * @return $this
+     * @return static
      */
     public function activate(): self
     {
@@ -275,7 +275,7 @@ class Page extends Model implements PageContract, Sortable
     /**
      * Deactivate the page.
      *
-     * @return $this
+     * @return static
      */
     public function deactivate(): self
     {

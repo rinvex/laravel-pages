@@ -36,8 +36,9 @@ To get started, you simply create a new page as follows:
 $page = app('rinvex.pages.page')->create([
     'uri' => 'test',
     'slug' => 'test-page',
+    'route' => 'frontend.pages.test',
     'title' => 'Test Page',
-    'view' => 'tes-page',
+    'view' => 'test-page',
 ]);
 
 // Deactivate the page
@@ -57,8 +58,9 @@ $pages = app('rinvex.pages.page')->inactive()->get();
 ```
 
 > **Notes:**
-> - All active pages are registered automatically into your application router with page's attributes, so the example page we created above could be accessed via the URL `http://your-project/test`, and you can generate page's URL using the named route `route('rinvex.pages.test-page')` where the route name consistes of `rinvex.pages.` prefix plus the page's slug. The result of accessing that page is the content of the page's rendered view.
+> - All active pages are registered automatically into your application router with page's attributes, so the example page we created above could be accessed via the URL `http://your-project/test`, and you can generate page's URL using the named route `route('frontend.pages.test')` as you may expect. The result of accessing that page is the content of the page's rendered view.
 > - **Rinvex Pages** auto register routes for your active pages, but you can disable routes auto registration in case you need more flexibility writing your own routes and maybe linking to your custom controllers, and that could be done from the config file `config/rinvex.pages.php` if you already published it in the installation step.
+> - **Rinvex Pages** expects you to create your own views before setting in page records, and that view could be anywhere and contain anything. It's important to know that all page views have access to the `$page` instance variable by default, so you can access any of the page's attributes.
 
 
 ## Changelog

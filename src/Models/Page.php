@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Models;
 
+use Rinvex\Tenantable\Traits\Tenantable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\EloquentSortable\Sortable;
@@ -21,6 +22,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property int            $id
  * @property string         $uri
  * @property string         $slug
+ * @property string         $route
  * @property string         $domain
  * @property string         $middleware
  * @property array          $title
@@ -46,6 +48,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereMiddleware($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereRoute($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereTitle($value)
@@ -57,6 +60,7 @@ use Spatie\EloquentSortable\SortableTrait;
 class Page extends Model implements PageContract, Sortable
 {
     use HasSlug;
+    use Tenantable;
     use SortableTrait;
     use HasTranslations;
     use ValidatingTrait;
@@ -69,6 +73,7 @@ class Page extends Model implements PageContract, Sortable
         'uri',
         'slug',
         'title',
+        'route',
         'subtitle',
         'domain',
         'middleware',
@@ -85,6 +90,7 @@ class Page extends Model implements PageContract, Sortable
     protected $casts = [
         'uri' => 'string',
         'slug' => 'string',
+        'route' => 'string',
         'domain' => 'string',
         'middleware' => 'string',
         'view' => 'string',
@@ -145,7 +151,8 @@ class Page extends Model implements PageContract, Sortable
         $this->setTable(config('rinvex.pages.tables.pages'));
         $this->setRules([
             'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
-            'slug' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
+            'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',route,NULL,id,domain,'.($this->domain ?? 'null'),
             'domain' => 'nullable|string|max:150',
             'middleware' => 'nullable|string|max:150',
             'title' => 'required|string|max:150',
@@ -166,11 +173,11 @@ class Page extends Model implements PageContract, Sortable
         parent::boot();
 
         // Auto generate slugs early before validation
-        static::validating(function (self $attribute) {
-            if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                $attribute->generateSlugOnUpdate();
-            } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                $attribute->generateSlugOnCreate();
+        static::validating(function (self $model) {
+            if ($model->exists && $model->getSlugOptions()->generateSlugsOnUpdate) {
+                $model->generateSlugOnUpdate();
+            } elseif (! $model->exists && $model->getSlugOptions()->generateSlugsOnCreate) {
+                $model->generateSlugOnCreate();
             }
         });
     }

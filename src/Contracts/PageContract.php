@@ -10,6 +10,7 @@ namespace Rinvex\Pages\Contracts;
  * @property int            $id
  * @property string         $uri
  * @property string         $slug
+ * @property string         $route
  * @property string         $domain
  * @property string         $middleware
  * @property array          $title
@@ -35,6 +36,7 @@ namespace Rinvex\Pages\Contracts;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereMiddleware($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereRoute($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereTitle($value)

@@ -24,13 +24,7 @@
     php artisan rinvex:migrate:pages
     ```
 
-3. **Optionally** you can publish config file by running the following command:
-    ```shell
-    // Publish config
-    php artisan vendor:publish --tag="rinvex-pages-config"
-    ```
-
-4. Done!
+3. Done!
 
 ## Usage
 

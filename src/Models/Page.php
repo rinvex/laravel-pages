@@ -224,7 +224,7 @@ class Page extends Model implements PageContract, Sortable
      *
      * @return static
      */
-    public function activate(): self
+    public function activate()
     {
         $this->update(['is_active' => true]);
 
@@ -236,7 +236,7 @@ class Page extends Model implements PageContract, Sortable
      *
      * @return static
      */
-    public function deactivate(): self
+    public function deactivate()
     {
         $this->update(['is_active' => false]);
 

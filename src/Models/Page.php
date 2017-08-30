@@ -200,54 +200,6 @@ class Page extends Model implements PageContract, Sortable
     }
 
     /**
-     * Set the translatable title attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value);
-    }
-
-    /**
-     * Set the translatable subtitle attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setSubtitleAttribute($value)
-    {
-        $this->attributes['subtitle'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable excerpt attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setExcerptAttribute($value)
-    {
-        $this->attributes['excerpt'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable content attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setContentAttribute($value)
-    {
-        $this->attributes['content'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
      * Get the options for generating the slug.
      *
      * @return \Spatie\Sluggable\SlugOptions

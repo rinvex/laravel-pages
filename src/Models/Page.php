@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Models;
 
-use Rinvex\Tenantable\Traits\Tenantable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Pages\Contracts\PageContract;
+use Rinvex\Tenantable\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;

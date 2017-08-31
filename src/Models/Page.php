@@ -10,7 +10,6 @@ use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Pages\Contracts\PageContract;
-use Rinvex\Tenantable\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Builder;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
@@ -60,7 +59,6 @@ use Spatie\EloquentSortable\SortableTrait;
 class Page extends Model implements PageContract, Sortable
 {
     use HasSlug;
-    use Tenantable;
     use SortableTrait;
     use HasTranslations;
     use ValidatingTrait;

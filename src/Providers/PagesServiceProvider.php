@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Providers;
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Pages\Contracts\PageContract;
@@ -67,12 +68,20 @@ class PagesServiceProvider extends ServiceProvider
     protected function loadRoutes(Router $router)
     {
         if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
-            app('rinvex.pages.page')->active()->each(function ($page) use ($router) {
-                $router->get($page->uri)
-                       ->name($page->route)
-                       ->uses(PagesController::class)
-                       ->middleware($page->middleware ?? 'web')
-                       ->domain($page->domain ?? null);
+            app('rinvex.pages.page')->active()->get()->groupBy('domain')->each(function ($pages, $domain) {
+
+                Route::domain($domain ?? domain())->group(function () use ($pages) {
+
+                    $pages->each(function ($page) {
+                        Route::get($page->uri)
+                             ->name($page->route)
+                             ->uses(PagesController::class)
+                             ->middleware($page->middleware ?? ['web'])
+                             ->where('locale', '[a-z]{2}');
+                    });
+
+                });
+
             });
         }
     }

@@ -11,7 +11,7 @@ class PagesController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $page = app('rinvex.pages.page')->where('uri', $request->route()->uri())->where('domain', $request->route()->domain())->first();
+        $page = app('rinvex.pages.page')->where('uri', $request->route()->uri())->where('domain', $request->route()->domain() ?: null)->first();
 
         return view($page->view, compact('page'));
     }

@@ -218,7 +218,7 @@ class Page extends Model implements PageContract, Sortable
     }
 
     /**
-     * Active the page.
+     * Activate the page.
      *
      * @return $this
      */

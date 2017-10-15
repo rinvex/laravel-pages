@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Pages\Contracts\PageContract;
 use Rinvex\Pages\Console\Commands\MigrateCommand;
+use Rinvex\Pages\Console\Commands\PublishCommand;
 use Rinvex\Pages\Http\Controllers\PagesController;
 
 class PagesServiceProvider extends ServiceProvider
@@ -21,6 +22,7 @@ class PagesServiceProvider extends ServiceProvider
      */
     protected $commands = [
         MigrateCommand::class => 'command.rinvex.pages.migrate',
+        PublishCommand::class => 'command.rinvex.pages.publish',
     ];
 
     /**

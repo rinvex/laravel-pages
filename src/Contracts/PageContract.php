@@ -7,22 +7,22 @@ namespace Rinvex\Pages\Contracts;
 /**
  * Rinvex\Pages\Contracts\PageContract.
  *
- * @property int            $id
- * @property string         $uri
- * @property string         $slug
- * @property string         $route
- * @property string         $domain
- * @property string         $middleware
- * @property array          $title
- * @property array          $subtitle
- * @property array          $excerpt
- * @property array          $content
- * @property string         $view
- * @property bool           $is_active
- * @property int            $sort_order
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $deleted_at
+ * @property int                 $id
+ * @property string              $uri
+ * @property string              $slug
+ * @property string              $route
+ * @property string              $domain
+ * @property string              $middleware
+ * @property array               $title
+ * @property array               $subtitle
+ * @property array               $excerpt
+ * @property array               $content
+ * @property string              $view
+ * @property bool                $is_active
+ * @property int                 $sort_order
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page active()
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page inactive()
@@ -35,8 +35,8 @@ namespace Rinvex\Pages\Contracts;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereMiddleware($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereRoute($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereTitle($value)

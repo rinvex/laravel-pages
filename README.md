@@ -3,7 +3,6 @@
 **Rinvex Pages** is an integral part for your Laravel content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/pages.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/pages)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:pages.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:pages/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/pages.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/pages/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/pages.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/pages)
 [![Travis](https://img.shields.io/travis/rinvex/pages.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/pages)

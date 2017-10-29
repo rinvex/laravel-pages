@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
@@ -161,23 +161,6 @@ class Page extends Model implements PageContract, Sortable
             'is_active' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer|max:10000000',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Auto generate slugs early before validation
-        static::validating(function (self $model) {
-            if ($model->exists && $model->getSlugOptions()->generateSlugsOnUpdate) {
-                $model->generateSlugOnUpdate();
-            } elseif (! $model->exists && $model->getSlugOptions()->generateSlugsOnCreate) {
-                $model->generateSlugOnCreate();
-            }
-        });
     }
 
     /**

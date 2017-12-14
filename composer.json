@@ -4,6 +4,7 @@
     "keywords": [
         "ajax",
         "async",
+        "laravel",
         "rinvex",
         "pages",
         "cache",
@@ -61,7 +62,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Rinvex\\Pages\\Test\\": "tests"
+            "Rinvex\\Pages\\Tests\\": "tests"
         }
     },
     "config": {

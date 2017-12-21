@@ -49,10 +49,7 @@ $page->activate();
 $pages = app('rinvex.pages.page')->all();
 
 // Get active pages
-$pages = app('rinvex.pages.page')->active()->get();
-
-// Get inactive pages
-$pages = app('rinvex.pages.page')->inactive()->get();
+$pages = app('rinvex.pages.page')->where('is_active', true)->get();
 ```
 
 > **Notes:**

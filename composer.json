@@ -45,6 +45,7 @@
         "illuminate/database": "~5.5.0",
         "rinvex/support": "dev-develop",
         "rinvex/cacheable": "dev-develop",
+        "roave/security-advisories": "dev-master",
         "spatie/laravel-sluggable": "^2.0.0",
         "spatie/laravel-translatable": "^2.0.0",
         "spatie/eloquent-sortable": "^3.4.0",

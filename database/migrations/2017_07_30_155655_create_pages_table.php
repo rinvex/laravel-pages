@@ -12,7 +12,7 @@ class CreatePagesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create(config('rinvex.pages.tables.pages'), function (Blueprint $table) {
             // Columns
@@ -44,7 +44,7 @@ class CreatePagesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config('rinvex.pages.tables.pages'));
     }

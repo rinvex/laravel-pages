@@ -9,7 +9,6 @@ use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Rinvex\Pages\Contracts\PageContract;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
@@ -53,7 +52,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereView($value)
  * @mixin \Eloquent
  */
-class Page extends Model implements PageContract, Sortable
+class Page extends Model implements Sortable
 {
     use HasSlug;
     use SortableTrait;

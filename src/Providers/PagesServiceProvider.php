@@ -38,10 +38,8 @@ class PagesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.pages');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.pages.page', function ($app) {
-            return new $app['config']['rinvex.pages.models.page']();
-        });
-        $this->app->alias('rinvex.pages.page', Page::class);
+        $this->app->singleton('rinvex.pages.page', $pageModel = $this->app['config']['rinvex.pages.models.page']);
+        $pageModel === Page::class || $this->app->alias('rinvex.pages.page', Page::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
@@ -106,9 +104,7 @@ class PagesServiceProvider extends ServiceProvider
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));

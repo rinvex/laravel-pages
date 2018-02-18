@@ -3,11 +3,9 @@
 **Rinvex Pages** is an integral part for your Laravel content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/pages.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/pages)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:pages.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:pages/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/pages.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/pages/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/pages.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/pages)
 [![Travis](https://img.shields.io/travis/rinvex/pages.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/pages)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/e87d27d0-0592-4f89-b224-01ed6cb51f82.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/e87d27d0-0592-4f89-b224-01ed6cb51f82)
 [![StyleCI](https://styleci.io/repos/98953486/shield)](https://styleci.io/repos/98953486)
 [![License](https://img.shields.io/packagist/l/rinvex/pages.svg?label=License&style=flat-square)](https://github.com/rinvex/pages/blob/develop/LICENSE)
 
@@ -21,19 +19,10 @@
 
 2. Execute migrations via the following command:
     ```
-    php artisan migrate --path="vendor/rinvex/pages/database/migrations"
+    php artisan rinvex:migrate:pages
     ```
 
-3. **Optionally** you can publish migrations and config files by running the following commands:
-    ```shell
-    // Publish migrations
-    php artisan vendor:publish --tag="rinvex-pages-migrations"
-
-    // Publish config
-    php artisan vendor:publish --tag="rinvex-pages-config"
-    ```
-
-4. Done!
+3. Done!
 
 ## Usage
 
@@ -42,11 +31,12 @@
 To get started, you simply create a new page as follows:
 
 ```php
-$page = \Rinvex\Pages\Models\Page::create([
+$page = app('rinvex.pages.page')->create([
     'uri' => 'test',
     'slug' => 'test-page',
+    'route' => 'frontend.pages.test',
     'title' => 'Test Page',
-    'view' => 'tes-page',
+    'view' => 'test-page',
 ]);
 
 // Deactivate the page
@@ -56,18 +46,16 @@ $page->deactivate();
 $page->activate();
 
 // Get all pages
-$pages = \Rinvex\Pages\Models\Page::all();
+$pages = app('rinvex.pages.page')->all();
 
 // Get active pages
-$pages = \Rinvex\Pages\Models\Page::active()->get();
-
-// Get inactive pages
-$pages = \Rinvex\Pages\Models\Page::inactive()->get();
+$pages = app('rinvex.pages.page')->where('is_active', true)->get();
 ```
 
 > **Notes:**
-> - All active pages are registered automatically into your application router with page's attributes, so the example page we created above could be accessed via the URL `http://your-project/test`, and you can generate page's URL using the named route `route('rinvex.pages.test-page')` where the route name consistes of `rinvex.pages.` prefix plus the page's slug. The result of accessing that page is the content of the page's rendered view.
+> - All active pages are registered automatically into your application router with page's attributes, so the example page we created above could be accessed via the URL `http://your-project/test`, and you can generate page's URL using the named route `route('frontend.pages.test')` as you may expect. The result of accessing that page is the content of the page's rendered view.
 > - **Rinvex Pages** auto register routes for your active pages, but you can disable routes auto registration in case you need more flexibility writing your own routes and maybe linking to your custom controllers, and that could be done from the config file `config/rinvex.pages.php` if you already published it in the installation step.
+> - **Rinvex Pages** expects you to create your own views before setting in page records, and that view could be anywhere and contain anything. It's important to know that all page views have access to the `$page` instance variable by default, so you can access any of the page's attributes.
 
 
 ## Changelog
@@ -111,4 +99,4 @@ Rinvex is a software solutions startup, specialized in integrated enterprise sol
 
 This software is released under [The MIT License (MIT)](LICENSE).
 
-(c) 2016-2017 Rinvex LLC, Some rights reserved.
+(c) 2016-2018 Rinvex LLC, Some rights reserved.

@@ -4,16 +4,54 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
-use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
-use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Builder;
+use Rinvex\Support\Traits\HasTranslations;
+use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 
+/**
+ * Rinvex\Pages\Models\Page.
+ *
+ * @property int                 $id
+ * @property string              $uri
+ * @property string              $slug
+ * @property string              $route
+ * @property string              $domain
+ * @property string              $middleware
+ * @property array               $title
+ * @property array               $subtitle
+ * @property array               $excerpt
+ * @property array               $content
+ * @property string              $view
+ * @property bool                $is_active
+ * @property int                 $sort_order
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page ordered($direction = 'asc')
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereDomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereExcerpt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereMiddleware($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereRoute($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSortOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSubtitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereUri($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereView($value)
+ * @mixin \Eloquent
+ */
 class Page extends Model implements Sortable
 {
     use HasSlug;
@@ -29,10 +67,12 @@ class Page extends Model implements Sortable
         'uri',
         'slug',
         'title',
+        'route',
         'subtitle',
+        'domain',
+        'middleware',
         'excerpt',
         'content',
-        'keywords',
         'view',
         'is_active',
         'sort_order',
@@ -44,11 +84,9 @@ class Page extends Model implements Sortable
     protected $casts = [
         'uri' => 'string',
         'slug' => 'string',
-        'title' => 'string',
-        'subtitle' => 'string',
-        'excerpt' => 'string',
-        'content' => 'string',
-        'keywords' => 'string',
+        'route' => 'string',
+        'domain' => 'string',
+        'middleware' => 'string',
         'view' => 'string',
         'is_active' => 'boolean',
         'sort_order' => 'integer',
@@ -71,7 +109,6 @@ class Page extends Model implements Sortable
         'subtitle',
         'excerpt',
         'content',
-        'keywords',
     ];
 
     /**
@@ -107,132 +144,19 @@ class Page extends Model implements Sortable
 
         $this->setTable(config('rinvex.pages.tables.pages'));
         $this->setRules([
-            'uri' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug',
+            'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
+            'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',route,NULL,id,domain,'.($this->domain ?? 'null'),
+            'domain' => 'nullable|string|max:150',
+            'middleware' => 'nullable|string|max:150',
             'title' => 'required|string|max:150',
             'subtitle' => 'nullable|string|max:150',
-            'excerpt' => 'sometimes|integer|max:10000',
-            'content' => 'required|string|max:10000000',
+            'excerpt' => 'nullable|string|max:10000',
+            'content' => 'nullable|string|max:10000000',
             'view' => 'required|string|max:150',
-            'keywords' => 'nullable|string|max:150',
             'is_active' => 'sometimes|boolean',
-            'sort_order' => 'sometimes|integer|max:10000000',
+            'sort_order' => 'nullable|integer|max:10000000',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Auto generate slugs early before validation
-        static::registerModelEvent('validating', function (self $attribute) {
-            if (! $attribute->slug) {
-                if ($attribute->exists && $attribute->getSlugOptions()->generateSlugsOnUpdate) {
-                    $attribute->generateSlugOnUpdate();
-                } elseif (! $attribute->exists && $attribute->getSlugOptions()->generateSlugsOnCreate) {
-                    $attribute->generateSlugOnCreate();
-                }
-            }
-        });
-    }
-
-    /**
-     * Get the active pages.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeActive(Builder $builder): Builder
-    {
-        return $builder->where('is_active', true);
-    }
-
-    /**
-     * Get the inactive pages.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeInactive(Builder $builder): Builder
-    {
-        return $builder->where('is_active', false);
-    }
-
-    /**
-     * Set the translatable title attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value);
-    }
-
-    /**
-     * Set the translatable subtitle attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setSubtitleAttribute($value)
-    {
-        $this->attributes['subtitle'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable excerpt attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setExcerptAttribute($value)
-    {
-        $this->attributes['excerpt'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable content attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setContentAttribute($value)
-    {
-        $this->attributes['content'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Set the translatable keywords attribute.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setKeywordsAttribute($value)
-    {
-        $this->attributes['keywords'] = ! empty($value) ? json_encode(! is_array($value) ? [app()->getLocale() => $value] : $value) : null;
-    }
-
-    /**
-     * Enforce clean slugs.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = str_slug($value, '_');
     }
 
     /**
@@ -249,11 +173,11 @@ class Page extends Model implements Sortable
     }
 
     /**
-     * Active the page.
+     * Activate the page.
      *
      * @return $this
      */
-    public function activate(): self
+    public function activate()
     {
         $this->update(['is_active' => true]);
 
@@ -265,7 +189,7 @@ class Page extends Model implements Sortable
      *
      * @return $this
      */
-    public function deactivate(): self
+    public function deactivate()
     {
         $this->update(['is_active' => false]);
 

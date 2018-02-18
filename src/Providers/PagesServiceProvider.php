@@ -6,19 +6,43 @@ namespace Rinvex\Pages\Providers;
 
 use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Pages\Console\Commands\MigrateCommand;
+use Rinvex\Pages\Console\Commands\PublishCommand;
+use Rinvex\Pages\Console\Commands\RollbackCommand;
+use Rinvex\Pages\Http\Controllers\PagesController;
 
 class PagesServiceProvider extends ServiceProvider
 {
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        MigrateCommand::class => 'command.rinvex.pages.migrate',
+        PublishCommand::class => 'command.rinvex.pages.publish',
+        RollbackCommand::class => 'command.rinvex.pages.rollback',
+    ];
+
     /**
      * Register the service provider.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.pages');
+
+        // Bind eloquent models to IoC container
+        $this->app->singleton('rinvex.pages.page', $pageModel = $this->app['config']['rinvex.pages.models.page']);
+        $pageModel === Page::class || $this->app->alias('rinvex.pages.page', Page::class);
+
+        // Register console commands
+        ! $this->app->runningInConsole() || $this->registerCommands();
     }
 
     /**
@@ -26,18 +50,14 @@ class PagesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router)
+    public function boot(Router $router): void
     {
-        // Load routes
+        // Load resources
         $this->loadRoutes($router);
+        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        if ($this->app->runningInConsole()) {
-            // Load migrations
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
-            // Publish Resources
-            $this->publishResources();
-        }
+        // Publish Resources
+        ! $this->app->runningInConsole() || $this->publishResources();
     }
 
     /**
@@ -47,19 +67,19 @@ class PagesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function loadRoutes(Router $router)
+    protected function loadRoutes(Router $router): void
     {
-        // Load routes
-        if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached()) {
-            Page::active()->each(function ($page) use ($router) {
-                $router->get($page->uri, function () use ($page) {
-                    return view($page->view, compact('page'));
-                })->name('rinvex.pages.'.$page->slug)->middleware('web');
-            });
-
-            $this->app->booted(function () use ($router) {
-                $router->getRoutes()->refreshNameLookups();
-                $router->getRoutes()->refreshActionLookups();
+        if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
+            app('rinvex.pages.page')->where('is_active', true)->get()->groupBy('domain')->each(function ($pages, $domain) {
+                Route::domain($domain ?? domain())->group(function () use ($pages) {
+                    $pages->each(function ($page) {
+                        Route::get($page->uri)
+                             ->name($page->route)
+                             ->uses(PagesController::class)
+                             ->middleware($page->middleware ?? ['web'])
+                             ->where('locale', '[a-z]{2}');
+                    });
+                });
             });
         }
     }
@@ -69,9 +89,24 @@ class PagesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function publishResources()
+    protected function publishResources(): void
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.pages.php')], 'rinvex-pages-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-pages-migrations');
+    }
+
+    /**
+     * Register console commands.
+     *
+     * @return void
+     */
+    protected function registerCommands(): void
+    {
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, $key);
+        }
+
+        $this->commands(array_values($this->commands));
     }
 }

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Rinvex\Pages\Models\Page;
-
 return [
 
     // Pageable Database Tables
@@ -13,7 +11,7 @@ return [
 
     // Pageable Models
     'models' => [
-        'page' => Page::class,
+        'page' => \Rinvex\Pages\Models\Page::class,
     ],
 
     // Register routes

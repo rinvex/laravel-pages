@@ -33,7 +33,7 @@ To get started, you simply create a new page as follows:
 ```php
 $page = app('rinvex.pages.page')->create([
     'uri' => 'test',
-    'name' => 'test-page',
+    'slug' => 'test-page',
     'route' => 'frontend.pages.test',
     'title' => 'Test Page',
     'view' => 'test-page',

@@ -18,7 +18,7 @@ use Spatie\EloquentSortable\SortableTrait;
  *
  * @property int                 $id
  * @property string              $uri
- * @property string              $name
+ * @property string              $slug
  * @property string              $route
  * @property string              $domain
  * @property string              $middleware
@@ -43,7 +43,7 @@ use Spatie\EloquentSortable\SortableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereMiddleware($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereRoute($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSortOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Pages\Models\Page whereTitle($value)
@@ -65,7 +65,7 @@ class Page extends Model implements Sortable
      */
     protected $fillable = [
         'uri',
-        'name',
+        'slug',
         'title',
         'route',
         'subtitle',
@@ -83,7 +83,7 @@ class Page extends Model implements Sortable
      */
     protected $casts = [
         'uri' => 'string',
-        'name' => 'string',
+        'slug' => 'string',
         'route' => 'string',
         'domain' => 'string',
         'middleware' => 'string',
@@ -145,7 +145,7 @@ class Page extends Model implements Sortable
         $this->setTable(config('rinvex.pages.tables.pages'));
         $this->setRules([
             'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
-            'name' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',name,NULL,id,domain,'.($this->domain ?? 'null'),
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
             'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',route,NULL,id,domain,'.($this->domain ?? 'null'),
             'domain' => 'nullable|string|max:150',
             'middleware' => 'nullable|string|max:150',
@@ -169,7 +169,7 @@ class Page extends Model implements Sortable
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('title')
-                          ->saveSlugsTo('name');
+                          ->saveSlugsTo('slug');
     }
 
     /**

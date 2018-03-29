@@ -18,7 +18,7 @@ class CreatePagesTable extends Migration
             // Columns
             $table->increments('id');
             $table->string('uri');
-            $table->string('name');
+            $table->string('slug');
             $table->string('route');
             $table->string('domain')->nullable();
             $table->string('middleware')->nullable();
@@ -34,7 +34,7 @@ class CreatePagesTable extends Migration
 
             // Indexes
             $table->unique(['domain', 'uri']);
-            $table->unique(['domain', 'name']);
+            $table->unique(['domain', 'slug']);
             $table->unique(['domain', 'route']);
         });
     }

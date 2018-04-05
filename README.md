@@ -40,10 +40,10 @@ $page = app('rinvex.pages.page')->create([
 ]);
 
 // Deactivate the page
-$page->deactivate();
+$page->makeInactive();
 
 // Activate the page
-$page->activate();
+$page->makeActive();
 
 // Get all pages
 $pages = app('rinvex.pages.page')->all();

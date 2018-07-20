@@ -177,7 +177,7 @@ class Page extends Model implements Sortable
      *
      * @return $this
      */
-    public function makeActive()
+    public function activate()
     {
         $this->update(['is_active' => true]);
 
@@ -189,7 +189,7 @@ class Page extends Model implements Sortable
      *
      * @return $this
      */
-    public function makeInactive()
+    public function deactivate()
     {
         $this->update(['is_active' => false]);
 

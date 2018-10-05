@@ -2,19 +2,19 @@
 
 **Rinvex Pages** is an integral part for your Laravel content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.
 
-[![Packagist](https://img.shields.io/packagist/v/rinvex/pages.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/pages)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/pages.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/pages/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/pages.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/pages)
-[![Travis](https://img.shields.io/travis/rinvex/pages.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/pages)
+[![Packagist](https://img.shields.io/packagist/v/rinvex/laravel-pages.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/laravel-pages)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/laravel-pages.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/laravel-pages/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/laravel-pages.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/laravel-pages)
+[![Travis](https://img.shields.io/travis/rinvex/laravel-pages.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/laravel-pages)
 [![StyleCI](https://styleci.io/repos/98953486/shield)](https://styleci.io/repos/98953486)
-[![License](https://img.shields.io/packagist/l/rinvex/pages.svg?label=License&style=flat-square)](https://github.com/rinvex/pages/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/rinvex/laravel-pages.svg?label=License&style=flat-square)](https://github.com/rinvex/laravel-pages/blob/develop/LICENSE)
 
 
 ## Installation
 
 1. Install the package via composer:
     ```shell
-    composer require rinvex/pages
+    composer require rinvex/laravel-pages
     ```
 
 2. Execute migrations via the following command:

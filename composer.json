@@ -1,6 +1,7 @@
 {
-    "name": "rinvex/pages",
+    "name": "rinvex/laravel-pages",
     "description": "Rinvex Pages is an integral part for your Laravel content management system (CMS), it affords an easy, yet powerful way to create and manage pages with full control over their URLs, active status, titles, content, and other attributes.",
+    "type": "library",
     "keywords": [
         "ajax",
         "async",
@@ -15,9 +16,9 @@
     "homepage": "https://rinvex.com",
     "support": {
         "email": "help@rinvex.com",
-        "issues": "https://github.com/rinvex/pages/issues",
-        "source": "https://github.com/rinvex/pages",
-        "docs": "https://github.com/rinvex/pages/blob/master/README.md"
+        "issues": "https://github.com/rinvex/laravel-pages/issues",
+        "source": "https://github.com/rinvex/laravel-pages",
+        "docs": "https://github.com/rinvex/laravel-pages/blob/master/README.md"
     },
     "authors": [
         {
@@ -33,26 +34,26 @@
         },
         {
             "name": "The Generous Laravel Community",
-            "homepage": "https://github.com/rinvex/pages/contributors"
+            "homepage": "https://github.com/rinvex/laravel-pages/contributors"
         }
     ],
     "require": {
         "php": "^7.1.3",
-        "illuminate/console": "~5.6.0",
-        "illuminate/database": "~5.6.0",
-        "illuminate/routing": "~5.6.0",
-        "illuminate/support": "~5.6.0",
-        "illuminate/view": "~5.6.0",
-        "rinvex/cacheable": "dev-develop",
-        "rinvex/support": "dev-develop",
+        "illuminate/console": "~5.7.0",
+        "illuminate/database": "~5.7.0",
+        "illuminate/routing": "~5.7.0",
+        "illuminate/support": "~5.7.0",
+        "illuminate/view": "~5.7.0",
+        "rinvex/laravel-cacheable": "^1.0.0",
+        "rinvex/laravel-support": "v1.0.0",
         "spatie/eloquent-sortable": "^3.4.0",
         "spatie/laravel-sluggable": "^2.1.0",
         "spatie/laravel-translatable": "^2.1.0",
         "watson/validating": "^3.1.0"
     },
     "require-dev": {
-        "codedungeon/phpunit-result-printer": "^0.19.0",
-        "illuminate/container": "~5.6.0",
+        "codedungeon/phpunit-result-printer": "^0.22.0",
+        "illuminate/container": "~5.7.0",
         "phpunit/phpunit": "^7.0.0"
     },
     "autoload": {
@@ -67,6 +68,9 @@
         "psr-4": {
             "Rinvex\\Pages\\Tests\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true,

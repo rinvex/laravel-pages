@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Providers;
 
+use Exception;
 use Rinvex\Pages\Models\Page;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -69,18 +71,26 @@ class PagesServiceProvider extends ServiceProvider
      */
     protected function loadRoutes(Router $router): void
     {
-        if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
-            app('rinvex.pages.page')->where('is_active', true)->get()->groupBy('domain')->each(function ($pages, $domain) {
-                Route::domain($domain ?? domain())->group(function () use ($pages) {
-                    $pages->each(function ($page) {
-                        Route::get($page->uri)
-                             ->name($page->route)
-                             ->uses(PagesController::class)
-                             ->middleware($page->middleware ?? ['web'])
-                             ->where('locale', '[a-z]{2}');
+        try {
+            // Just check if we have DB connection! This is to avoid
+            // exceptions on new projects before configuring database options
+            DB::connection()->getPdo();
+
+            if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
+                app('rinvex.pages.page')->where('is_active', true)->get()->groupBy('domain')->each(function ($pages, $domain) {
+                    Route::domain($domain ?? domain())->group(function () use ($pages) {
+                        $pages->each(function ($page) {
+                            Route::get($page->uri)
+                                 ->name($page->route)
+                                 ->uses(PagesController::class)
+                                 ->middleware($page->middleware ?? ['web'])
+                                 ->where('locale', '[a-z]{2}');
+                        });
                     });
                 });
-            });
+            }
+        } catch (Exception $e) {
+            // Be quite! Do not do or say anything!!
         }
     }
 

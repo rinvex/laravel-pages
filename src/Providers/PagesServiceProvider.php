@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Support\Traits\ConsoleTools;
 use Rinvex\Pages\Console\Commands\MigrateCommand;
 use Rinvex\Pages\Console\Commands\PublishCommand;
 use Rinvex\Pages\Console\Commands\RollbackCommand;
@@ -18,6 +19,8 @@ use Rinvex\Pages\Http\Controllers\PagesController;
 
 class PagesServiceProvider extends ServiceProvider
 {
+    use ConsoleTools;
+
     /**
      * The commands to be registered.
      *
@@ -56,10 +59,10 @@ class PagesServiceProvider extends ServiceProvider
     {
         // Load resources
         $this->loadRoutes($router);
-        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishResources();
+        ! $this->app->runningInConsole() || $this->publishesConfig('rinvex/laravel-pages');
+        ! $this->app->runningInConsole() || $this->publishesMigrations('rinvex/laravel-pages');
     }
 
     /**
@@ -92,31 +95,5 @@ class PagesServiceProvider extends ServiceProvider
         } catch (Exception $e) {
             // Be quite! Do not do or say anything!!
         }
-    }
-
-    /**
-     * Publish resources.
-     *
-     * @return void
-     */
-    protected function publishResources(): void
-    {
-        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.pages.php')], 'rinvex-pages-config');
-        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-pages-migrations');
-    }
-
-    /**
-     * Register console commands.
-     *
-     * @return void
-     */
-    protected function registerCommands(): void
-    {
-        // Register artisan commands
-        foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, $key);
-        }
-
-        $this->commands(array_values($this->commands));
     }
 }

@@ -17,14 +17,14 @@
     composer require rinvex/laravel-pages
     ```
 
-2. Execute migrations via the following command:
-    ```
-    php artisan rinvex:migrate:pages
-    ```
-
-3. **Optional** if you want to change the configurations:
+2. Publish resources (migrations and config files):
     ```shell
     php artisan rinvex:publish:pages
+    ```
+
+3. Execute migrations via the following command:
+    ```shell
+    php artisan rinvex:migrate:pages
     ```
 
 4. Done!

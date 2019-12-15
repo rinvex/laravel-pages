@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Rinvex\Pages\Models\Page;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 

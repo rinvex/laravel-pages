@@ -44,7 +44,7 @@ class PageSaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'rinvex.pages.created';
+        return 'rinvex.pages.saved';
     }
 
     /**
@@ -54,6 +54,6 @@ class PageSaved implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'rinvex.pages.count';
+        return 'rinvex.pages.list';
     }
 }

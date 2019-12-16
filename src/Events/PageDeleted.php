@@ -54,6 +54,6 @@ class PageDeleted implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'rinvex.pages.count';
+        return 'rinvex.pages.list';
     }
 }

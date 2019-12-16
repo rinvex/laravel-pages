@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Models;
 
 use Spatie\Sluggable\SlugOptions;
-use Rinvex\Support\Traits\HasSlug;
 use Rinvex\Pages\Events\PageSaved;
+use Rinvex\Support\Traits\HasSlug;
 use Rinvex\Pages\Events\PageDeleted;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;

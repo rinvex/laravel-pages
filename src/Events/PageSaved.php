@@ -7,11 +7,13 @@ namespace Rinvex\Pages\Events;
 use Rinvex\Pages\Models\Page;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PageCreated implements ShouldBroadcast
+class PageSaved implements ShouldBroadcast
 {
     use SerializesModels;
+    Use InteractsWithSockets;
 
     public $page;
 

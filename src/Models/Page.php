@@ -6,7 +6,7 @@ namespace Rinvex\Pages\Models;
 
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
-use Rinvex\Pages\Events\PageCreated;
+use Rinvex\Pages\Events\PageSaved;
 use Rinvex\Pages\Events\PageDeleted;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
@@ -109,7 +109,7 @@ class Page extends Model implements Sortable
      * @var array
      */
     protected $dispatchesEvents = [
-        'created' => PageCreated::class,
+        'saved' => PageSaved::class,
         'deleted' => PageDeleted::class,
     ];
 

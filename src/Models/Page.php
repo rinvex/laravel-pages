@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Models;
 
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Pages\Events\PageSaved;
 use Rinvex\Support\Traits\HasSlug;
+use Rinvex\Pages\Events\PageDeleted;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
@@ -99,6 +101,16 @@ class Page extends Model implements Sortable
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => PageSaved::class,
+        'deleted' => PageDeleted::class,
     ];
 
     /**

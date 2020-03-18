@@ -16,7 +16,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create(config('rinvex.pages.tables.pages'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('uri');
             $table->string('slug');
             $table->string('route');

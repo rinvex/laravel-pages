@@ -13,7 +13,7 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'rinvex:migrate:pages {--force : Force the operation to run when in production.}';
+    protected $signature = 'rinvex:migrate:pages {--f|force : Force the operation to run when in production.}';
 
     /**
      * The console command description.
@@ -31,7 +31,11 @@ class MigrateCommand extends Command
     {
         $this->alert($this->description);
 
-        if (file_exists($path = 'database/migrations/rinvex/laravel-pages')) {
+        $path = config('rinvex.pages.autoload_migrations') ?
+            'vendor/rinvex/laravel-pages/database/migrations' :
+            'database/migrations/rinvex/laravel-pages';
+
+        if (file_exists($path)) {
             $this->call('migrate', [
                 '--step' => true,
                 '--path' => $path,

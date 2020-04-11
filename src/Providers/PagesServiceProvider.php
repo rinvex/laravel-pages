@@ -47,7 +47,7 @@ class PagesServiceProvider extends ServiceProvider
         $pageModel === Page::class || $this->app->alias('rinvex.pages.page', Page::class);
 
         // Register console commands
-        $this->registerCommands();
+        $this->registerCommands($this->commands);
     }
 
     /**

@@ -159,15 +159,15 @@ class Page extends Model implements Sortable
             'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
             'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',route,NULL,id,domain,'.($this->domain ?? 'null'),
-            'domain' => 'nullable|string|max:150',
-            'middleware' => 'nullable|string|max:150',
-            'title' => 'required|string|max:150',
-            'subtitle' => 'nullable|string|max:150',
+            'domain' => 'nullable|string|strip_tags|max:150',
+            'middleware' => 'nullable|string|strip_tags|max:150',
+            'title' => 'required|string|strip_tags|max:150',
+            'subtitle' => 'nullable|string|strip_tags|max:150',
             'excerpt' => 'nullable|string|max:10000',
-            'content' => 'nullable|string|max:10000000',
-            'view' => 'required|string|max:150',
+            'content' => 'nullable|string|max:100000',
+            'view' => 'required|string|strip_tags|max:150',
             'is_active' => 'sometimes|boolean',
-            'sort_order' => 'nullable|integer|max:10000000',
+            'sort_order' => 'nullable|integer|max:10000',
         ]);
     }
 

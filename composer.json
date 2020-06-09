@@ -44,7 +44,6 @@
         "illuminate/routing": "^7.0.0",
         "illuminate/support": "^7.0.0",
         "illuminate/view": "^7.0.0",
-        "rinvex/laravel-cacheable": "^4.0.0",
         "rinvex/laravel-support": "^4.0.0",
         "spatie/eloquent-sortable": "^3.7.0",
         "spatie/laravel-sluggable": "^2.2.0",

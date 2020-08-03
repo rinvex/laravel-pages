@@ -162,7 +162,7 @@ class Page extends Model implements Sortable
             'title' => 'required|string|strip_tags|max:150',
             'subtitle' => 'nullable|string|strip_tags|max:150',
             'excerpt' => 'nullable|string|max:32768',
-            'content' => 'nullable|string|max:32768',
+            'content' => 'nullable|string|max:262144',
             'view' => 'required|string|strip_tags|max:150',
             'is_active' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer|max:100000',

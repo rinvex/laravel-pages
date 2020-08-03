@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.1.2] - 2020-08-04
+- Update content field validation rule
+
 ## [v4.1.1] - 2020-07-16
 - Update validation rules
 
@@ -99,6 +102,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v4.1.2]: https://github.com/rinvex/laravel-pages/compare/v4.1.1...v4.1.2
 [v4.1.1]: https://github.com/rinvex/laravel-pages/compare/v4.1.0...v4.1.1
 [v4.1.0]: https://github.com/rinvex/laravel-pages/compare/v4.0.6...v4.1.0
 [v4.0.6]: https://github.com/rinvex/laravel-pages/compare/v4.0.5...v4.0.6

@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Events;
 
 use Rinvex\Pages\Models\Page;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PageDeleted implements ShouldBroadcast
+class PageCreated implements ShouldBroadcast
 {
     use InteractsWithSockets;
+    use SerializesModels;
     use Dispatchable;
 
     /**
@@ -36,7 +38,7 @@ class PageDeleted implements ShouldBroadcast
      */
     public function __construct(Page $page)
     {
-        $this->model = $page->withoutRelations();
+        $this->model = $page;
     }
 
     /**
@@ -48,7 +50,6 @@ class PageDeleted implements ShouldBroadcast
     {
         return [
             new PrivateChannel('rinvex.pages.pages.index'),
-            new PrivateChannel("rinvex.pages.pages.{$this->model->getRouteKey()}"),
         ];
     }
 
@@ -59,6 +60,6 @@ class PageDeleted implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'page.deleted';
+        return 'page.created';
     }
 }

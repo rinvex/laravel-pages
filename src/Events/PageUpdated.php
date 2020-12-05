@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Events;
 
 use Rinvex\Pages\Models\Page;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PageSaved implements ShouldBroadcast
+class PageUpdated implements ShouldBroadcast
 {
-    use SerializesModels;
     use InteractsWithSockets;
+    use SerializesModels;
+    use Dispatchable;
 
     /**
      * The name of the queue on which to place the event.
@@ -27,7 +29,7 @@ class PageSaved implements ShouldBroadcast
      *
      * @var \Rinvex\Pages\Models\Page
      */
-    public $page;
+    public Page $model;
 
     /**
      * Create a new event instance.
@@ -36,17 +38,20 @@ class PageSaved implements ShouldBroadcast
      */
     public function __construct(Page $page)
     {
-        $this->page = $page;
+        $this->model = $page;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel
+     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
      */
     public function broadcastOn()
     {
-        return new Channel($this->formatChannelName());
+        return [
+            new PrivateChannel('rinvex.pages.pages.index'),
+            new PrivateChannel("rinvex.pages.pages.{$this->model->getRouteKey()}"),
+        ];
     }
 
     /**
@@ -56,16 +61,6 @@ class PageSaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'rinvex.pages.saved';
-    }
-
-    /**
-     * Format channel name.
-     *
-     * @return string
-     */
-    protected function formatChannelName(): string
-    {
-        return 'rinvex.pages.list';
+        return 'page.updated';
     }
 }

@@ -6,10 +6,6 @@ namespace Rinvex\Pages\Models;
 
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
-use Rinvex\Pages\Events\PageCreated;
-use Rinvex\Pages\Events\PageDeleted;
-use Rinvex\Pages\Events\PageUpdated;
-use Rinvex\Pages\Events\PageRestored;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
@@ -101,18 +97,6 @@ class Page extends Model implements Sortable
     protected $observables = [
         'validating',
         'validated',
-    ];
-
-    /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => PageCreated::class,
-        'updated' => PageUpdated::class,
-        'deleted' => PageDeleted::class,
-        'restored' => PageRestored::class,
     ];
 
     /**

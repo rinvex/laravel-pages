@@ -154,7 +154,7 @@ trait Pageable
     /**
      * Determine if the model has any of the given pages.
      *
-     * @param mixed  $pages
+     * @param mixed $pages
      *
      * @return bool
      */
@@ -166,7 +166,7 @@ trait Pageable
     /**
      * Determine if the model has all of the given pages.
      *
-     * @param mixed  $pages
+     * @param mixed $pages
      *
      * @return bool
      */

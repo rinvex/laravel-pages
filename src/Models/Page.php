@@ -170,7 +170,8 @@ class Page extends Model implements Sortable
     /**
      * Determine if a set mutator exists for an attribute.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return bool
      */
     public function hasSetMutator($key)
@@ -183,7 +184,8 @@ class Page extends Model implements Sortable
     /**
      * Determine if a get mutator exists for an attribute.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return bool
      */
     public function hasGetMutator($key)

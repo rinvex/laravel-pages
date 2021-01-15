@@ -46,6 +46,11 @@ class PagesServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.pages.page', $pageModel = $this->app['config']['rinvex.pages.models.page']);
         $pageModel === Page::class || $this->app->alias('rinvex.pages.page', Page::class);
 
+        // Register pageables
+        $this->app->singleton('rinvex.pages.pageables', function ($app) {
+            return collect();
+        });
+
         // Register console commands
         $this->registerCommands($this->commands);
     }

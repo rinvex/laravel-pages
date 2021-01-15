@@ -61,6 +61,33 @@ $pages = app('rinvex.pages.page')->where('is_active', true)->get();
 > - **Rinvex Pages** auto register routes for your active pages, but you can disable routes auto registration in case you need more flexibility writing your own routes and maybe linking to your custom controllers, and that could be done from the config file `config/rinvex.pages.php` if you already published it in the installation step.
 > - **Rinvex Pages** expects you to create your own views before setting in page records, and that view could be anywhere and contain anything. It's important to know that all page views have access to the `$page` instance variable by default, so you can access any of the page's attributes.
 
+### ADVANCED: Attach Resources to Page
+
+Sometimes you need to attach other resources to a specific page, to display later as "Related Content" for example, the presentation layer is left to you to implement, but the following is how to attach these resources programmatically.
+
+To attach other resources to any page, follow these two steps:
+
+1. Use `\Rinvex\Pages\Traits\Pageable` trait in your resources you need to attach.
+
+2. Register your resource as a `pageable`, and add mutator setter/getter support for in your resource in the page's model. This is done in service provider `boot` method. See the following example of `Article` resource we're attaching to the page:
+
+```php
+use App\Models\Article;
+use Rinvex\Pages\Models\Page;
+
+app('rinvex.pages.pageables')->put('article', Article::class);
+
+Page::macro('setArticlesAttribute', function ($categories) {
+    static::saved(function (self $model) use ($categories) {
+        $model->entries(Article::class)->sync($categories, true);
+    });
+});
+
+Page::macro('getArticlesAttribute', function () {
+    return $this->entries(Article::class)->get();
+});
+```
+
 
 ## Changelog
 

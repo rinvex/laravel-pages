@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Rinvex\Pages\Models;
 
+use Illuminate\Support\Str;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
+use Rinvex\Support\Traits\Macroable;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Rinvex\Pages\Models\Page.
@@ -54,6 +57,7 @@ use Spatie\EloquentSortable\SortableTrait;
 class Page extends Model implements Sortable
 {
     use HasSlug;
+    use Macroable;
     use SortableTrait;
     use HasTranslations;
     use ValidatingTrait;
@@ -155,6 +159,50 @@ class Page extends Model implements Sortable
             'is_active' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer|max:100000',
         ]);
+
+        app('rinvex.pages.pageables')->each(function ($pageable, $key) {
+            $field = Str::plural($key);
+            $this->mergeFillable([$field]);
+            $this->mergeRules([$field => 'nullable|array']);
+        });
+    }
+
+    /**
+     * Determine if a set mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasSetMutator($key)
+    {
+        $method = 'set'.Str::studly($key).'Attribute';
+
+        return method_exists($this, $method) ?: self::hasMacro($method);
+    }
+
+    /**
+     * Determine if a get mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasGetMutator($key)
+    {
+        $method = 'get'.Str::studly($key).'Attribute';
+
+        return method_exists($this, $method) ?: self::hasMacro($method);
+    }
+
+    /**
+     * Get all attached models of the given class to the page.
+     *
+     * @param string $class
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function entries(string $class): MorphToMany
+    {
+        return $this->morphedByMany($class, 'pageable', config('rinvex.pages.tables.pageables'), 'page_id', 'pageable_id', 'id', 'id');
     }
 
     /**

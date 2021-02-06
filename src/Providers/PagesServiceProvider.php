@@ -43,8 +43,9 @@ class PagesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.pages');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.pages.page', $pageModel = $this->app['config']['rinvex.pages.models.page']);
-        $pageModel === Page::class || $this->app->alias('rinvex.pages.page', Page::class);
+        $this->registerModels([
+            'rinvex.pages.page' => Page::class,
+        ]);
 
         // Register pageables
         $this->app->singleton('rinvex.pages.pageables', function ($app) {

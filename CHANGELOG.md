@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.4] - 2021-02-06
+- Simplify service provider model registration into IoC
+
 ## [v5.0.3] - 2021-01-16
 - Update missing pages config option
 
@@ -117,6 +120,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v5.0.4]: https://github.com/rinvex/laravel-pages/compare/v5.0.3...v5.0.4
 [v5.0.3]: https://github.com/rinvex/laravel-pages/compare/v5.0.2...v5.0.3
 [v5.0.2]: https://github.com/rinvex/laravel-pages/compare/v5.0.1...v5.0.2
 [v5.0.1]: https://github.com/rinvex/laravel-pages/compare/v5.0.0...v5.0.1

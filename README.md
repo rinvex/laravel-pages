@@ -74,17 +74,18 @@ To attach other resources to any page, follow these two steps:
 ```php
 use App\Models\Article;
 use Rinvex\Pages\Models\Page;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 app('rinvex.pages.pageables')->put('article', Article::class);
 
-Page::macro('setArticlesAttribute', function ($categories) {
-    static::saved(function (self $model) use ($categories) {
-        $model->entries(Article::class)->sync($categories, true);
+Page::macro('setArticlesAttribute', function ($articles) {
+    static::saved(function (self $model) use ($articles) {
+        $model->entries(Article::class)->sync($articles, true);
     });
 });
 
-Page::macro('getArticlesAttribute', function () {
-    return $this->entries(Article::class)->get();
+Page::resolveRelationUsing('articles', function ($pageModel): MorphToMany {
+    return $pageModel->entries(Article::class);
 });
 ```
 

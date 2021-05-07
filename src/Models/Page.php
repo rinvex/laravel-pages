@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -58,6 +59,7 @@ class Page extends Model implements Sortable
 {
     use HasSlug;
     use Macroable;
+    use SoftDeletes;
     use SortableTrait;
     use HasTranslations;
     use ValidatingTrait;

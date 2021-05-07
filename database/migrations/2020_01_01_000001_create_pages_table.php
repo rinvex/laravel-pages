@@ -21,11 +21,11 @@ class CreatePagesTable extends Migration
             $table->string('slug');
             $table->string('route');
             $table->string('domain')->nullable();
-            $table->string('middleware')->nullable();
-            $table->{$this->jsonable()}('title');
-            $table->{$this->jsonable()}('subtitle')->nullable();
-            $table->{$this->jsonable()}('excerpt')->nullable();
-            $table->{$this->jsonable()}('content')->nullable();
+            $table->json('middleware')->nullable();
+            $table->json('title');
+            $table->json('subtitle')->nullable();
+            $table->json('excerpt')->nullable();
+            $table->json('content')->nullable();
             $table->string('view');
             $table->boolean('is_active')->default(true);
             $table->mediumInteger('sort_order')->unsigned()->default(0);
@@ -47,19 +47,5 @@ class CreatePagesTable extends Migration
     public function down(): void
     {
         Schema::dropIfExists(config('rinvex.pages.tables.pages'));
-    }
-
-    /**
-     * Get jsonable column data type.
-     *
-     * @return string
-     */
-    protected function jsonable(): string
-    {
-        $driverName = DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME);
-        $dbVersion = DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION);
-        $isOldVersion = version_compare($dbVersion, '5.7.8', 'lt');
-
-        return $driverName === 'mysql' && $isOldVersion ? 'text' : 'json';
     }
 }

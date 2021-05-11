@@ -144,8 +144,6 @@ class Page extends Model implements Sortable
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.pages.tables.pages'));
         $this->setRules([
             'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
@@ -167,6 +165,8 @@ class Page extends Model implements Sortable
             $this->mergeFillable([$field]);
             $this->mergeRules([$field => 'nullable|array']);
         });
+
+        parent::__construct($attributes);
     }
 
     /**

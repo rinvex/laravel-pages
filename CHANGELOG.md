@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.6] - 2021-05-11
+- Fix constructor initialization order (fill attributes should come next after merging fillables & rules)
+
 ## [v5.0.5] - 2021-05-07
 - Drop old MySQL versions support that doesn't support json columns
 - Upgrade to GitHub-native Dependabot
@@ -127,6 +130,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v5.0.6]: https://github.com/rinvex/laravel-pages/compare/v5.0.5...v5.0.6
 [v5.0.5]: https://github.com/rinvex/laravel-pages/compare/v5.0.4...v5.0.5
 [v5.0.4]: https://github.com/rinvex/laravel-pages/compare/v5.0.3...v5.0.4
 [v5.0.3]: https://github.com/rinvex/laravel-pages/compare/v5.0.2...v5.0.3

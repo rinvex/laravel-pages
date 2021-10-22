@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.0.1] - 2021-10-22
+- Update .styleci.yml fixers
+- Fix page route domain definition
+- Check before detaching pages if deleted entity was soft deleted
+
 ## [v6.0.0] - 2021-08-22
 - Drop PHP v7 support, and upgrade rinvex package dependencies to next major version
 - Update composer dependencies
@@ -140,6 +145,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v6.0.1]: https://github.com/rinvex/laravel-pages/compare/v6.0.0...v6.0.1
 [v6.0.0]: https://github.com/rinvex/laravel-pages/compare/v5.0.7...v6.0.0
 [v5.0.7]: https://github.com/rinvex/laravel-pages/compare/v5.0.6...v5.0.7
 [v5.0.6]: https://github.com/rinvex/laravel-pages/compare/v5.0.5...v5.0.6

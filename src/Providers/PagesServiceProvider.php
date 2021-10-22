@@ -88,7 +88,7 @@ class PagesServiceProvider extends ServiceProvider
 
             if (config('rinvex.pages.register_routes') && ! $this->app->routesAreCached() && Schema::hasTable(config('rinvex.pages.tables.pages'))) {
                 app('rinvex.pages.page')->where('is_active', true)->get()->groupBy('domain')->each(function ($pages, $domain) {
-                    Route::domain($domain ?? domain())->group(function () use ($pages) {
+                    Route::domain($domain)->group(function () use ($pages) {
                         $pages->each(function ($page) {
                             Route::get($page->uri)
                                  ->name($page->route)

@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.1.0] - 2022-02-14
+- Update composer dependencies to Laravel v9
+- Add support for model HasFactory
+
 ## [v6.0.1] - 2021-10-22
 - Update .styleci.yml fixers
 - Fix page route domain definition
@@ -145,6 +149,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v6.1.0]: https://github.com/rinvex/laravel-pages/compare/v6.0.1...v6.1.0
 [v6.0.1]: https://github.com/rinvex/laravel-pages/compare/v6.0.0...v6.0.1
 [v6.0.0]: https://github.com/rinvex/laravel-pages/compare/v5.0.7...v6.0.0
 [v5.0.7]: https://github.com/rinvex/laravel-pages/compare/v5.0.6...v5.0.7

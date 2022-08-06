@@ -100,7 +100,7 @@ class PagesServiceProvider extends ServiceProvider
                 });
             }
         } catch (Exception $e) {
-            // Be quite! Do not do or say anything!!
+            // Be quiet! Do not do or say anything!!
         }
     }
 }

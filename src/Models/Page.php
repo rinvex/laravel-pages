@@ -148,9 +148,9 @@ class Page extends Model implements Sortable
     {
         $this->setTable(config('rinvex.pages.tables.pages'));
         $this->mergeRules([
-            'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.tables.pages').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
-            'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.tables.pages').',route,NULL,id,domain,'.($this->domain ?? 'null'),
+            'uri' => 'required|regex:/^([0-9a-z\/_-]+)$/|max:150|unique:'.config('rinvex.pages.models.page').',uri,NULL,id,domain,'.($this->domain ?? 'null'),
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.pages.models.page').',slug,NULL,id,domain,'.($this->domain ?? 'null'),
+            'route' => 'required|regex:/^([0-9a-z\._-]+)$/|max:150|unique:'.config('rinvex.pages.models.page').',route,NULL,id,domain,'.($this->domain ?? 'null'),
             'domain' => 'nullable|string|strip_tags|max:150',
             'middleware' => 'nullable|string|strip_tags|max:150',
             'title' => 'required|string|strip_tags|max:150',

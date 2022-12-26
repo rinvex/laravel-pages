@@ -6,7 +6,6 @@ namespace Rinvex\Pages\Providers;
 
 use Exception;
 use Rinvex\Pages\Models\Page;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -61,10 +60,10 @@ class PagesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router): void
+    public function boot(): void
     {
         // Load resources
-        $this->loadRoutes($router);
+        $this->loadRoutes();
 
         // Publish Resources
         $this->publishesConfig('rinvex/laravel-pages');
@@ -75,11 +74,9 @@ class PagesServiceProvider extends ServiceProvider
     /**
      * Load the routes.
      *
-     * @param \Illuminate\Routing\Router $router
-     *
      * @return void
      */
-    protected function loadRoutes(Router $router): void
+    protected function loadRoutes(): void
     {
         try {
             // Just check if we have DB connection! This is to avoid

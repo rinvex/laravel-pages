@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.0.0] - 2023-01-09
+- Add Relation::morphMap
+- Tweak artisan commands registration
+- Drop PHP v8.0 support and update composer dependencies
+- Utilize PHP 8.1 attributes feature for artisan commands
+
 ## [v6.1.2] - 2022-08-30
 - Update exists and unique validation rules to use models instead of tables
 
@@ -155,6 +161,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v7.0.0]: https://github.com/rinvex/laravel-pages/compare/v6.1.2...v7.0.0
 [v6.1.2]: https://github.com/rinvex/laravel-pages/compare/v6.1.1...v6.1.2
 [v6.1.1]: https://github.com/rinvex/laravel-pages/compare/v6.1.0...v6.1.1
 [v6.1.0]: https://github.com/rinvex/laravel-pages/compare/v6.0.1...v6.1.0

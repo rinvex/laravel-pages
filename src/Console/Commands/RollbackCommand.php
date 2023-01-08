@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Rinvex\Pages\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand(name: 'rinvex:rollback:pages')]
 class RollbackCommand extends Command
 {
     /**

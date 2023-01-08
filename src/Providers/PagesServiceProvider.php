@@ -6,7 +6,6 @@ namespace Rinvex\Pages\Providers;
 
 use Exception;
 use Rinvex\Pages\Models\Page;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +15,7 @@ use Rinvex\Pages\Console\Commands\MigrateCommand;
 use Rinvex\Pages\Console\Commands\PublishCommand;
 use Rinvex\Pages\Console\Commands\RollbackCommand;
 use Rinvex\Pages\Http\Controllers\PagesController;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class PagesServiceProvider extends ServiceProvider
 {
@@ -27,9 +27,9 @@ class PagesServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        MigrateCommand::class => 'command.rinvex.pages.migrate',
-        PublishCommand::class => 'command.rinvex.pages.publish',
-        RollbackCommand::class => 'command.rinvex.pages.rollback',
+        MigrateCommand::class,
+        PublishCommand::class,
+        RollbackCommand::class,
     ];
 
     /**
@@ -53,7 +53,7 @@ class PagesServiceProvider extends ServiceProvider
         });
 
         // Register console commands
-        $this->registerCommands($this->commands);
+        $this->commands($this->commands);
     }
 
     /**
@@ -61,25 +61,28 @@ class PagesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Router $router): void
+    public function boot(): void
     {
         // Load resources
-        $this->loadRoutes($router);
+        $this->loadRoutes();
 
         // Publish Resources
         $this->publishesConfig('rinvex/laravel-pages');
         $this->publishesMigrations('rinvex/laravel-pages');
         ! $this->autoloadMigrations('rinvex/laravel-pages') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Map relations
+        Relation::morphMap([
+            'page' => config('rinvex.pages.models.page'),
+        ]);
     }
 
     /**
      * Load the routes.
      *
-     * @param \Illuminate\Routing\Router $router
-     *
      * @return void
      */
-    protected function loadRoutes(Router $router): void
+    protected function loadRoutes(): void
     {
         try {
             // Just check if we have DB connection! This is to avoid

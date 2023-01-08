@@ -69,6 +69,11 @@ class PagesServiceProvider extends ServiceProvider
         $this->publishesConfig('rinvex/laravel-pages');
         $this->publishesMigrations('rinvex/laravel-pages');
         ! $this->autoloadMigrations('rinvex/laravel-pages') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Map relations
+        Relation::morphMap([
+            'page' => config('rinvex.pages.models.page'),
+        ]);
     }
 
     /**

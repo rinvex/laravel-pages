@@ -46,7 +46,7 @@
         "illuminate/view": "^9.0.0 || ^10.0.0",
         "rinvex/laravel-support": "^7.0.0",
         "spatie/eloquent-sortable": "^4.0.0",
-        "spatie/laravel-sluggable": "^3.3.0",
+        "spatie/laravel-sluggable": "^3.4.0",
         "spatie/laravel-translatable": "^6.0.0"
     },
     "require-dev": {

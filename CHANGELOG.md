@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.1.0] - 2023-05-02
+- a237eaa: Add support for Laravel v11, and drop support for Laravel v9
+- 2caf0b4: Upgrade spatie/laravel-translatable to v6.5 from v6.0
+- a0127ee: Upgrade spatie/laravel-sluggable to v3.4 from v3.3
+- 45a360f: Update phpunit to v10.1 from v9.5
+
 ## [v7.0.0] - 2023-01-09
 - Add Relation::morphMap
 - Tweak artisan commands registration
@@ -161,6 +167,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v7.1.0]: https://github.com/rinvex/laravel-pages/compare/v7.0.0...v7.1.0
 [v7.0.0]: https://github.com/rinvex/laravel-pages/compare/v6.1.2...v7.0.0
 [v6.1.2]: https://github.com/rinvex/laravel-pages/compare/v6.1.1...v6.1.2
 [v6.1.1]: https://github.com/rinvex/laravel-pages/compare/v6.1.0...v6.1.1

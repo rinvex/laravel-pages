@@ -48,9 +48,7 @@ class PagesServiceProvider extends ServiceProvider
         ]);
 
         // Register pageables
-        $this->app->singleton('rinvex.pages.pageables', function ($app) {
-            return collect();
-        });
+        $this->app->singleton('rinvex.pages.pageables', fn() => collect());
 
         // Register console commands
         $this->commands($this->commands);

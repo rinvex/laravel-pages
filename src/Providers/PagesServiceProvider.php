@@ -48,9 +48,7 @@ class PagesServiceProvider extends ServiceProvider
         ]);
 
         // Register pageables
-        $this->app->singleton('rinvex.pages.pageables', function ($app) {
-            return collect();
-        });
+        $this->app->singleton('rinvex.pages.pageables', fn() => collect());
 
         // Register console commands
         $this->commands($this->commands);
@@ -66,10 +64,11 @@ class PagesServiceProvider extends ServiceProvider
         // Load resources
         $this->loadRoutes();
 
-        // Publish Resources
-        $this->publishesConfig('rinvex/laravel-pages');
-        $this->publishesMigrations('rinvex/laravel-pages');
-        ! $this->autoloadMigrations('rinvex/laravel-pages') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        // Register paths to be published by the publish command.
+        $this->publishConfigFrom(__DIR__.'/../../config/config.php', 'rinvex/pages');
+        $this->publishMigrationsFrom(__DIR__.'/../../database/migrations', 'rinvex/pages');
+
+        ! $this->app['config']['rinvex.pages.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Map relations
         Relation::morphMap([

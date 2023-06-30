@@ -65,10 +65,10 @@ class PagesServiceProvider extends ServiceProvider
         $this->loadRoutes();
 
         // Register paths to be published by the publish command.
-        $this->publishConfigFrom(__DIR__.'/../../config/config.php', 'rinvex/pages');
-        $this->publishMigrationsFrom(__DIR__.'/../../database/migrations', 'rinvex/pages');
+        $this->publishConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex/pages');
+        $this->publishMigrationsFrom(realpath(__DIR__.'/../../database/migrations'), 'rinvex/pages');
 
-        ! $this->app['config']['rinvex.pages.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        ! $this->app['config']['rinvex.pages.autoload_migrations'] || $this->loadMigrationsFrom(realpath(__DIR__.'/../../database/migrations'));
 
         // Map relations
         Relation::morphMap([

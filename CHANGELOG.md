@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.1.3] - 2023-08-16
+- Replace unique rule validation with unique_with
+  - fix different scenario issues on model create, and model update
+
 ## [v7.1.2] - 2023-07-03
 - Update composer dependencies
 - Use canonicalized absolute pathnames for resources
@@ -174,6 +178,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2018-02-18
 - Tag first release
 
+[v7.1.3]: https://github.com/rinvex/laravel-pages/compare/v7.1.2...v7.1.3
 [v7.1.2]: https://github.com/rinvex/laravel-pages/compare/v7.1.1...v7.1.2
 [v7.1.1]: https://github.com/rinvex/laravel-pages/compare/v7.1.0...v7.1.1
 [v7.1.0]: https://github.com/rinvex/laravel-pages/compare/v7.0.0...v7.1.0
